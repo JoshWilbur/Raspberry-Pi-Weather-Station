@@ -19,20 +19,46 @@ ST7735_TFT myTFT;
 // Static declaration of functions
 int8_t Setup(void);
 void Test_Text(void);
-void Screen_One(char* temp, char* humid);
+void Screen_One(char* temp, char* pressure);
+void Screen_Two(char* alt, char* gas);
+void Screen_Three(char* temp, char* pres, char* alt, char* gas);
 void Shutdown_Display(void);
 
-// This function will create the layout for displaying readings
-void Screen_One(char* temp, char* humid){
+// This function will create the layout for displaying temperature and humidity
+void Screen_One(char* temp, char* pressure){
 	myTFT.TFTfillScreen(ST7735_BLACK);
 	myTFT.TFTsetRotation(myTFT.TFT_Degrees_270); // Rotate screen so its in landscape mode
 	myTFT.TFTfillRect(0, 62, 160, 4, ST7735_GREEN); // Green horizontal line
 	myTFT.TFTFontNum(myTFT.TFTFont_Tiny);
-	myTFT.TFTdrawText(0, 20, temp, ST7735_WHITE, ST7735_BLACK, 2); // Display temperature
-        myTFT.TFTdrawText(0, 90, humid, ST7735_WHITE, ST7735_BLACK, 2); // Display humidity
-        std::this_thread::sleep_for(std::chrono::seconds(3)); // Display for three seconds before ending function
+	myTFT.TFTdrawText(4, 20, temp, ST7735_WHITE, ST7735_BLACK, 2); // Display temperature
+        myTFT.TFTdrawText(4, 90, pressure, ST7735_WHITE, ST7735_BLACK, 2); // Display humidity
 }
 
+// This function will create the layout for displaying altitude and gas
+void Screen_Two(char* alt, char* gas){
+        myTFT.TFTfillScreen(ST7735_BLACK);
+        myTFT.TFTsetRotation(myTFT.TFT_Degrees_270); // Rotate screen so its in landscape mode
+        myTFT.TFTfillRect(0, 62, 160, 4, ST7735_CYAN); // Green horizontal line
+        myTFT.TFTFontNum(myTFT.TFTFont_Tiny);
+        myTFT.TFTdrawText(4, 20, alt, ST7735_WHITE, ST7735_BLACK, 2); // Display altitude
+        myTFT.TFTdrawText(4, 90, gas, ST7735_WHITE, ST7735_BLACK, 2); // Display gas reading
+}
+
+// This function will display the maximum values of each reading
+void Screen_Three(char* temp, char* pres, char* alt, char* gas){
+        myTFT.TFTfillScreen(ST7735_BLACK);
+        myTFT.TFTsetRotation(myTFT.TFT_Degrees_270); // Rotate screen so its in landscape mode
+	myTFT.TFTfillRect(0, 20, 160, 4, ST7735_BLUE); // Green horizontal line
+	myTFT.TFTfillRect(0, 50, 160, 4, ST7735_ORANGE); // Green horizontal line
+	myTFT.TFTfillRect(0, 80, 160, 4, ST7735_YELLOW); // Green horizontal line
+	myTFT.TFTfillRect(0, 105, 160, 4, ST7735_MAGENTA); // Green horizontal line
+        myTFT.TFTFontNum(myTFT.TFTFont_Tiny);
+	myTFT.TFTdrawText(20, 0, "Maximum Readings", ST7735_WHITE, ST7735_BLACK, 2); // Display max temperature
+        myTFT.TFTdrawText(4, 25, temp, ST7735_WHITE, ST7735_BLACK, 2); // Display max temperature
+        myTFT.TFTdrawText(4, 55, pres, ST7735_WHITE, ST7735_BLACK, 2); // Display max pressure
+        myTFT.TFTdrawText(4, 85, alt, ST7735_WHITE, ST7735_BLACK, 2); // Display max altitude
+        myTFT.TFTdrawText(4, 110, gas, ST7735_WHITE, ST7735_BLACK, 2); // Display max gas reading
+}
 
 // Setup function from TFT library (
 int8_t Setup(void)

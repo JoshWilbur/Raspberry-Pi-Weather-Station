@@ -5,4 +5,6 @@
 int8_t Setup(void);
 void Test_Text(void);
 void Shutdown_Display(void);
-void Screen_One(char* temp, char* humid);
+void Screen_One(char* temp, char* pressure);
+void Screen_Two(char* alt, char* gas);
+void Screen_Three(char* temp, char* pres, char* alt, char* gas);

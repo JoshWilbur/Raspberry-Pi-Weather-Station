@@ -51,5 +51,5 @@ int read_input(void){
 
 	// GPIO read result in data.values[0]
         int result = data.values[0];
-	return result;
+	return !(result);
 }
