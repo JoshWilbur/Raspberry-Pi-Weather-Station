@@ -1,4 +1,4 @@
-// Compile with: g++ -o display display.cpp display_func.cpp -lbcm2835 -lrt -lST7735_TFT_RPI
+// Compile with: g++ -o display display.cpp display_func.cpp input.c -lbcm2835 -lrt -lST7735_TFT_RPI
 // Run using: sudo ./display
 
 #include <bcm2835.h>
@@ -19,7 +19,7 @@ int main(void) {
 	if(!Setup())return -1;
 	Create_Layout();
 	while(1){
-	if(read_input() == 1){
+	if(read_input() == 0){
 		printf("worked");
 	}}
 	Shutdown_Display();

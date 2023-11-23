@@ -42,11 +42,13 @@ int read_input(void){
         // Run ioctl when called
         memset(&data, 0, sizeof(data));
         rv = ioctl(req.fd, GPIOHANDLE_GET_LINE_VALUES_IOCTL, &data);
+
         // Error checking to make sure input was read in correctly
         if (rv == -1) {
                 perror("GPIO value read error: ");
                 exit(1);
         }
+
 	// GPIO read result in data.values[0]
         int result = data.values[0];
 	return result;
