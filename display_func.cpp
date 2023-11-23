@@ -19,14 +19,17 @@ ST7735_TFT myTFT;
 // Static declaration of functions
 int8_t Setup(void);
 void Test_Text(void);
-void Create_Layout(void);
+void Screen_One(char* temp, char* humid);
 void Shutdown_Display(void);
 
 // This function will create the layout for displaying readings
-void Create_Layout(void){
+void Screen_One(char* temp, char* humid){
 	myTFT.TFTfillScreen(ST7735_BLACK);
-	myTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate screen so its in landscape mode
-	myTFT.TFTfillRect(0, 62, 160, 4, ST7735_GREEN);
+	myTFT.TFTsetRotation(myTFT.TFT_Degrees_270); // Rotate screen so its in landscape mode
+	myTFT.TFTfillRect(0, 62, 160, 4, ST7735_GREEN); // Green horizontal line
+	myTFT.TFTFontNum(myTFT.TFTFont_Tiny);
+	myTFT.TFTdrawText(0, 20, temp, ST7735_WHITE, ST7735_BLACK, 2); // Display temperature
+        myTFT.TFTdrawText(0, 90, humid, ST7735_WHITE, ST7735_BLACK, 2); // Display humidity
         std::this_thread::sleep_for(std::chrono::seconds(3)); // Display for three seconds before ending function
 }
 

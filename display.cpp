@@ -17,11 +17,12 @@ extern "C" {
 int main(void) {
 	input_setup();
 	if(!Setup())return -1;
-	Create_Layout();
-	while(1){
+	char temp[] = "Temperature: 30";
+	char hum[] = "Humidity: 30";
+	Screen_One(temp, hum);
 	if(read_input() == 0){
 		printf("worked");
-	}}
+	}
 	Shutdown_Display();
 	return 0;
 }

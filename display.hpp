@@ -5,4 +5,4 @@
 int8_t Setup(void);
 void Test_Text(void);
 void Shutdown_Display(void);
-void Create_Layout(void);
+void Screen_One(char* temp, char* humid);
