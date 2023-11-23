@@ -26,7 +26,7 @@ void Shutdown_Display(void);
 void Create_Layout(void){
 	myTFT.TFTfillScreen(ST7735_BLACK);
 	myTFT.TFTsetRotation(myTFT.TFT_Degrees_90); // Rotate screen so its in landscape mode
-	myTFT.TFTdrawFastHLine(64, 64, 128, ST7735_GREEN);
+	myTFT.TFTfillRect(0, 62, 160, 4, ST7735_GREEN);
         std::this_thread::sleep_for(std::chrono::seconds(3)); // Display for three seconds before ending function
 }
 
@@ -46,7 +46,7 @@ int8_t Setup(void)
 	int8_t DC_TFT   = 24;
 	int8_t SCLK_TFT = -1;   // 5, change to any GPIO no for sw spi, -1 hw spi
 	int8_t SDIN_TFT = -1;   // 6, change to any GPIO no for sw spi, -1 hw spi
-	int8_t CS_TFT   = -1 ;  // 8, change to any GPIO no for sw spi, -1 hw spi
+	int8_t CS_TFT   = -1;  // 8, change to any GPIO no for sw spi, -1 hw spi
 	myTFT.TFTSetupGPIO(RST_TFT, DC_TFT, CS_TFT, SCLK_TFT, SDIN_TFT);
 
 
@@ -54,7 +54,7 @@ int8_t Setup(void)
 	uint8_t OFFSET_COL = 0;  // 2, These offsets can be adjusted for any issues->
 	uint8_t OFFSET_ROW = 0; // 3, with manufacture tolerance/defects
 	uint16_t TFT_WIDTH = 128; // Screen width
-	uint16_t TFT_HEIGHT = 128; // Screen height
+	uint16_t TFT_HEIGHT = 160; // Screen height
 	myTFT.TFTInitScreenSize(OFFSET_COL, OFFSET_ROW , TFT_WIDTH , TFT_HEIGHT);
 
 // PCB_TYPE + SPI baud rate + SPI_CE_PIN
