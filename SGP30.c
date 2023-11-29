@@ -1,10 +1,3 @@
-
-// This will contain interfacing for the gas sensor
-
-//Git test PC #2
-
-//Git test Pi
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -12,6 +5,7 @@
 #include <sys/ioctl.h>
 #include <linux/i2c-dev.h>
 #include "sgp30.h"
+
 // I2C device address for the SGP30 sensor
 #define SGP30_I2C_ADDR 0x58
 
@@ -39,7 +33,7 @@ void sgp30Init(int file){
 struct SGP30Values sgp30Measure(int file){
 	struct SGP30Values values;
 
-//Measure and read CO2 and TVOC values
+	//Measure and read CO2 and TVOC values
     unsigned char measure_cmd[2] = {(SGP30_MEASURE_CMD >> 8) & 0xFF, SGP30_MEASURE_CMD & 0xFF};
     if (write(file, measure_cmd, sizeof(measure_cmd)) != sizeof(measure_cmd)) {
         perror("Failed to send SGP30 measure command");
@@ -74,6 +68,7 @@ int main() {
         perror("Failed to open the i2c bus");
         exit(1);
     }
+	//Initialize the device
 	sgp30Init(file);
 	while(1){
 		struct SGP30Values values;
