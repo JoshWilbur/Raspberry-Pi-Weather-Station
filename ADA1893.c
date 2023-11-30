@@ -71,11 +71,11 @@ void ada1893_setup(int alt_pres){
 	//printf("Data flag bytes written: %d\n",result);
 
 	// Give device time to configure before reading
-	usleep(1000000);
+	usleep(750000);
 }
 
 // This function reads and processes the temperature in celsius
-int read_temp(){
+float read_temp(){
 	// Read in values and store in data_in array
 	result = read(fd_ada, data_in, 6);
 	// Error check reading
@@ -85,12 +85,13 @@ int read_temp(){
 	}
 
 	// Obtain temperature reading in celsius (12 bit, ignore last 4 bits of data_in[5])
-	int tempC = ((data_in[4] * 256) + (data_in[5] & 0xF0)) / 256;
-	return tempC;
+	int tempC = ((data_in[4] * 256) + (data_in[5] & 0xF0));
+	float tempOut = tempC / 256.0;
+	return tempOut;
 }
 
 // This function reads and processes the altitude in meters (use 0 for setup function argument)
-int read_alt(){
+float read_alt(){
         // Read in values and store in data_in array
         result = read(fd_ada, data_in, 6);
         // Error check reading
@@ -100,12 +101,13 @@ int read_alt(){
         }
 
 	// Obtain altitude reading in meters (20 bit, ignore last 4 bits of data_in[3])
-	int altM = ((data_in[1] * 65536) + (data_in[2] * 256) + (data_in[3] & 0xF0)) / 256;
-        return altM;
+	int alt = ((data_in[1] * 65536) + (data_in[2] * 256) + (data_in[3] & 0xF0));
+	float altOut = alt / 256.0;
+        return altOut;
 }
 
 // This function reads and processes the pressure in kPa (use 1 for setup function argument)
-int read_pres(){
+float read_pres(){
         // Read in values and store in data_in array
         result = read(fd_ada, data_pres, 6);
         // Error check reading
@@ -115,7 +117,8 @@ int read_pres(){
         }
 
 	// Obtain pressure reading in kPa (20 bit, ignore last 4 bits of data_in[3])
-	int pres_kPa = 4 * ((data_pres[1] * 65536) + (data_pres[2] * 256) + (data_pres[3] & 0xF0)) / 256000;
+	int pres = ((data_pres[1] * 65536) + (data_pres[2] * 256) + (data_pres[3] & 0xF0));
+	float pres_kPa = (4.0 * pres) / 256000.0;
 	return pres_kPa;
 }
 
