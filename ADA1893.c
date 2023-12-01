@@ -85,7 +85,7 @@ float read_temp(){
 	}
 
 	// Obtain temperature reading in celsius (12 bit, ignore last 4 bits of data_in[5])
-	int tempC = ((data_in[4] * 256) + (data_in[5] & 0xF0));
+	int tempC = ((data_in[4] << 8) | (data_in[5] & 0xF0));
 	float tempOut = tempC / 256.0;
 	return tempOut;
 }
@@ -101,7 +101,7 @@ float read_alt(){
         }
 
 	// Obtain altitude reading in meters (20 bit, ignore last 4 bits of data_in[3])
-	int alt = ((data_in[1] * 65536) + (data_in[2] * 256) + (data_in[3] & 0xF0));
+	int alt = ((data_in[1] << 16) | (data_in[2] << 8) | (data_in[3] & 0xF0));
 	float altOut = alt / 256.0;
         return altOut;
 }
@@ -117,7 +117,7 @@ float read_pres(){
         }
 
 	// Obtain pressure reading in kPa (20 bit, ignore last 4 bits of data_in[3])
-	int pres = ((data_pres[1] * 65536) + (data_pres[2] * 256) + (data_pres[3] & 0xF0));
+	int pres = ((data_pres[1] << 16) | (data_pres[2] < 8) | (data_pres[3] & 0xF0));
 	float pres_kPa = (4.0 * pres) / 256000.0;
 	return pres_kPa;
 }

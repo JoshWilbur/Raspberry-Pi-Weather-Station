@@ -7,7 +7,7 @@
 #include <sys/ioctl.h>
 #include <linux/gpio.h>
 
-#include "c_func.h"
+//#include "c_func.h"
 
 static int fd, rv;
 static struct gpiohandle_request req;
