@@ -57,7 +57,7 @@ int main(void) {
                 if (temp_read < temp_min) temp_min = temp_read;
                 if (pres_read < pres_min && pres_read > 10) pres_min = pres_read;
                 if (alt_read < alt_min) alt_min = alt_read;
-                if (gas_read < gas_min && gas_min > 0) gas_min = gas_read;
+                if (gas_read < gas_min && gas_min > 10) gas_min = gas_read;
 
 	 	std::sprintf(t_min, "Min Temp: %.2f C", temp_min);
 		std::sprintf(t_max, "Max Temp: %.2f C", temp_max);
